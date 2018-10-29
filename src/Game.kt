@@ -42,13 +42,16 @@ fun getPlayersInTeam(id: Int) {
             val body = p1?.body()?.string()
 
             val gson = GsonBuilder().create()
-
+            var players: List<Player> = mutableListOf()
             val roster = gson.fromJson(body, Skater::class.java)
             val rosterJersy = gson.fromJson(body, SkaterJersy::class.java)
             val rosterPosition = gson.fromJson(body, SkaterPosition::class.java)
             for (i in roster.roster.indices) {
                 println(roster.roster[i].person.fullName + " " + rosterJersy.roster[i].jerseyNumber + " " + rosterPosition.roster[i].position.name)
+                players += mutableListOf(Player(roster.roster[i].person.fullName, rosterJersy.roster[i].jerseyNumber, rosterPosition.roster[i].position.name))
             }
+            val tampaBay = NHLTeam("Vegas Golden Knights", 1, players)
+            println(tampaBay)
             //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
